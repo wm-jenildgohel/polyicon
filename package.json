@@ -1,0 +1,38 @@
+{
+  "name": "polyicon",
+  "version": "0.1.0",
+  "description": "SVG to icon font generator with HTML preview — Fontello-style output for React and web projects.",
+  "license": "MIT",
+  "type": "commonjs",
+  "main": "src/index.js",
+  "keywords": [
+    "polyicon",
+    "icon",
+    "icons",
+    "svg",
+    "font",
+    "iconfont",
+    "fontello",
+    "react",
+    "cli",
+    "woff",
+    "woff2",
+    "ttf"
+  ],
+  "files": [
+    "bin",
+    "src",
+    "README.md"
+  ],
+  "bin": {
+    "polyicon": "bin/polyicon.js"
+  },
+  "scripts": {
+    "generate": "node bin/polyicon.js generate"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^4.5.3",
+    "fs-extra": "^11.1.1",
+    "svgtofont": "^4.0.0"
+  }
+}
