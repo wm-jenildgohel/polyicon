@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.2] — 2026-03-18
+
+### Fixed
+- `svgtofont` v6 is ESM-only — switched from `require()` to dynamic `import()` in `run_svgtofont.js` to resolve "svgtofont is not a function" error
+
 ## [0.1.1] — 2026-03-18
 
 ### Added
