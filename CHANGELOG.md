@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.3] — 2026-04-02
+
+### Fixed
+- Blank icon generation for SVGs using non-path elements (`<circle>`, `<ellipse>`, `<rect>`, `<polygon>`, `<polyline>`, `<line>`) — previously only `<path>` elements were extracted, silently dropping all other shapes
+- White background rect stripping no longer removes closing tags from non-white rects
+
 ## [0.1.2] — 2026-03-18
 
 ### Fixed
