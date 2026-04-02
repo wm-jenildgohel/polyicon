@@ -66,20 +66,27 @@ async function buildIcons(conf) {
       .replace(/\sfilter='[^']*'/gi, "")
       .replace(/\smask="[^"]*"/gi, "")
       .replace(/\smask='[^']*'/gi, "")
-      // Remove common background rects that create square glyphs.
+      // Remove common white background rects (and their closing tags)
+      // that create square glyphs.
       .replace(
-        /<rect\b[^>]*fill=["'](?:#fff|#ffffff|white)["'][^>]*\/?>/gi,
+        /<rect\b[^>]*fill=["'](?:#fff|#ffffff|white)["'][^>]*(?:\/>|>(?:\s*<\/rect>)?)/gi,
         ""
-      )
-      .replace(/<\/rect>/gi, "");
-    const pathTags =
-      cleaned.match(/<path\b[^>]*\/?>/gi) ||
-      cleaned.match(/<path\b[^>]*>[\s\S]*?<\/path>/gi);
+      );
+    // Extract all SVG drawing elements — not just <path>.
+    // Covers circle, ellipse, rect, polygon, polyline, and line so icons
+    // built from basic shapes are no longer silently dropped.
+    const shapeTags =
+      cleaned.match(
+        /<(?:path|circle|ellipse|rect|polygon|polyline|line)\b[^>]*\/?>/gi
+      ) ||
+      cleaned.match(
+        /<(?:path|circle|ellipse|rect|polygon|polyline|line)\b[^>]*>[\s\S]*?<\/(?:path|circle|ellipse|rect|polygon|polyline|line)>/gi
+      );
     let outputSvg = cleaned;
-    if (pathTags && pathTags.length) {
+    if (shapeTags && shapeTags.length) {
       const viewBoxMatch = cleaned.match(/viewBox="([^"]+)"/i);
       const viewBoxAttr = viewBoxMatch ? ` viewBox="${viewBoxMatch[1]}"` : "";
-      outputSvg = `<svg xmlns="http://www.w3.org/2000/svg"${viewBoxAttr}>${pathTags.join(
+      outputSvg = `<svg xmlns="http://www.w3.org/2000/svg"${viewBoxAttr}>${shapeTags.join(
         ""
       )}</svg>`;
     }
